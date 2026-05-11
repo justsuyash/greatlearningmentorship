@@ -11,6 +11,10 @@ import uvicorn
 import markdown
 import asyncio
 import json
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # LangSmith — auto-instruments all LangGraph executions
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
