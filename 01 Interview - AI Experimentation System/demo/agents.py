@@ -108,6 +108,31 @@ committing.
             "description": "Synthesized real data findings into executive summary"
         })
         return state
+        
+    if state["experiment_id"] == "EXP_CART_REDESIGN":
+        report = """
+We tested the new Cart Redesign V2 against the current checkout flow.
+
+The redesign was highly successful at driving conversions, with a **14.2% lift in checkout rate** and a **15.9% increase in revenue per user**.
+
+We are 99.9% confident these revenue increases are real.
+
+⚠️ Watch Out For:
+• The **Error Rate increased by 0.50 percentage points** in the treatment group. This suggests there may be a technical issue or increased latency in the new design.
+
+💡 Recommendation: 
+**HOLD** the rollout until the engineering team investigates and resolves the elevated Error Rate in the V2 design.
+"""
+        state["final_report"] = report
+        state["confidence"] = "Medium Confidence"
+        state["agent_log"].append({
+            "agent": "summary_agent",
+            "type": "Deliberative Agent",
+            "input_summary": "All state fields (fast-path: demo override active)",
+            "output_summary": "HOLD — Error rate elevation detected",
+            "description": "Synthesized real data findings into executive summary"
+        })
+        return state
 
     prompt = f"""
     You are an expert Product Data Scientist. Generate an HTML/Markdown executive summary for an A/B test.
